@@ -62,10 +62,11 @@ class HiSCN_layer(MessagePassing):
         self.alpha = alpha
         self.Order = Order
         #filterWeights = initFilterWeight(Init, alpha, K, Gamma)
-        filterWeights = alpha * (1 - alpha) ** np.arange(K + 1)
-        filterWeights[-1] = (1 - alpha) ** K
-        # self.fW = Parameter(torch.tensor([filterWeights]).repeat([Order, 1]))
-        self.fW = Parameter(torch.tensor(filterWeights))
+        # filterWeights = alpha * (1 - alpha) ** np.arange(K + 1)
+        # filterWeights[-1] = (1 - alpha) ** K
+        # self.fW = Parameter(torch.tensor(filterWeights))
+        self.fW = Parameter(torch.Tensor(self.K + 1))
+        self.reset_parameters()
 
     def reset_parameters(self):
         torch.nn.init.zeros_(self.fW)
