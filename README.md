@@ -77,7 +77,7 @@ If some hyperparameter are not given above, it is same as the default value in t
 # Repreduce results in Table 3:
 ## Create null model for Texas:
 For academic confidentiality, we can't release the code which is used to generate the null model, 
-so we publish the edge list of each null model in the folder `nullModel_Texas` under `Data` folder.
+so we publish the edge list of each null model in the folder `nullModel_Texas` under `data` folder.
 
 If you want to run null model dataset, just change Dataset name as Texas_null and choose rho in 
 `['-0.5', '-0.4', '-0.3', '-0.2', '-0.1', '0.1', '0.2', '0.3', '0.4', '0.5']` (mentiond: `--rho` need to be string)
