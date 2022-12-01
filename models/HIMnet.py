@@ -17,37 +17,6 @@ import torch_sparse
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-# 这个函数没有用了发布时候再删掉
-def initFilterWeight(Init, alpha, K, Gamma=None):
-    """
-    构造滤波器的多项式系数
-    """
-    assert Init in ['SGC', 'PPR', 'NPPR', 'Random',
-                    'WS'], 'The method for initialising the filter weights is not defined.'
-    if Init == 'SGC':
-        # note that in SCG model, alpha has to be a integer.
-        # It means where the peak at when initializing GPR weights.
-        filterWeights = 0.0 * np.ones(K + 1)
-        filterWeights[alpha] = 1.0
-    elif Init == 'PPR':
-        # PPR-like
-        filterWeights = alpha * (1 - alpha) ** np.arange(K + 1)
-        filterWeights[-1] = (1 - alpha) ** K
-    elif Init == 'NPPR':
-        # Negative PPR
-        filterWeights = (alpha) ** np.arange(K + 1)
-        filterWeights = filterWeights / np.sum(np.abs(filterWeights))
-    elif Init == 'Random':
-        # Random
-        bound = np.sqrt(3 / (K + 1))
-        filterWeights = np.random.uniform(-bound, bound, K + 1)
-        filterWeights = filterWeights / np.sum(np.abs(filterWeights))
-    elif Init == 'WS':
-        # Specify Gamma
-        # 指定的Gamma
-        filterWeights = Gamma
-    return filterWeights
-
 
 class HIMnet_prop(MessagePassing):
     '''

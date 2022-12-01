@@ -49,13 +49,13 @@ def initFilterWeight(Init, alpha, K, Gamma=None):
     return filterWeights
 
 
-class HiSCN_layer(MessagePassing):
+class HiSCN_prop(MessagePassing):
     '''
     propagation class for GPR_GNN
     '''
 
     def __init__(self, K, alpha, Order=2, bias=True, **kwargs):
-        super(HiSCN_layer, self).__init__(aggr='add', **kwargs)
+        super(HiSCN_prop, self).__init__(aggr='add', **kwargs)
         # K=10, alpha=0.1, Init='PPR',
         self.K = K
         #self.Init = Init
@@ -98,7 +98,7 @@ class HiSCN(torch.nn.Module):
 
         for i in range(args.Order):
             self.lin_in.append(Linear(dataset.num_features, args.hidden))
-            self.hgc.append(HiSCN_layer(args.K, args.alpha, args.Order))
+            self.hgc.append(HiSCN_prop(args.K, args.alpha, args.Order))
 
         self.lin_out = Linear(args.hidden * args.Order, dataset.num_classes)
 

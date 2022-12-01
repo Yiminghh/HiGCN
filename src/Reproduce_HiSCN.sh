@@ -20,8 +20,8 @@ python train_model.py --RPMAX 100 --net HiSCN --dataset chameleon --lr 0.08 --al
 python train_model.py --RPMAX 100 --net HiSCN --dataset film --lr 0.03 --alpha 0.4 --weight_decay 0.0 --dprate 0.7 --dropout 0.9 --early_stopping 500
 
 python train_model.py --RPMAX 100 --net HiSCN --dataset squirrel --lr 0.5 --alpha 0.7 --weight_decay 0.0 --early_stopping 500
-#python train_model.py --RPMAX 100 --net HiSCN --dataset squirrel --lr 0.5 --alpha 0.7 --weight_decay 0.0  --dprate 0.5 --dropout 0.7 --early_stopping 500
-python train_model.py --RPMAX 100 --net HiSCN --dataset squirrel --lr 0.5 --alpha 0.7 --weight_decay 0.0  --dprate 0.7 --dropout 0.7 --early_stopping 300
+# python train_model.py --RPMAX 100 --net HiSCN --dataset squirrel --lr 0.5 --alpha 0.7 --weight_decay 0.0  --dprate 0.5 --dropout 0.7 --early_stopping 500
+# python train_model.py --RPMAX 100 --net HiSCN --dataset squirrel --lr 0.5 --alpha 0.7 --weight_decay 0.0  --dprate 0.7 --dropout 0.7 --early_stopping 300
 
 
 python train_model.py --RPMAX 100 --net HiSCN --dataset texas --lr 0.1 --alpha 0.5 --weight_decay 0.0001 --dprate 0.7 --dropout 0.7
