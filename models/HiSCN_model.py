@@ -58,13 +58,8 @@ class HiSCN_prop(MessagePassing):
         super(HiSCN_prop, self).__init__(aggr='add', **kwargs)
         # K=10, alpha=0.1, Init='PPR',
         self.K = K
-        #self.Init = Init
         self.alpha = alpha
         self.Order = Order
-        #filterWeights = initFilterWeight(Init, alpha, K, Gamma)
-        # filterWeights = alpha * (1 - alpha) ** np.arange(K + 1)
-        # filterWeights[-1] = (1 - alpha) ** K
-        # self.fW = Parameter(torch.tensor(filterWeights))
         self.fW = Parameter(torch.Tensor(self.K + 1))
         self.reset_parameters()
 
@@ -107,8 +102,8 @@ class HiSCN(torch.nn.Module):
         self.dprate = args.dprate
         self.dropout = args.dropout
 
-    def reset_parameters(self):
-        self.hgc.reset_parameters()
+    # def reset_parameters(self):
+    #     self.hgc.reset_parameters()
 
     def forward(self, data):
 
