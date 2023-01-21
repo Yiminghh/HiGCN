@@ -1,6 +1,7 @@
-# HiSCN
+# HiGCN
 
-This is the source code for our  paper: HiSCN: Hierarchical simplicial conventional network  via higher-order random walk based Laplacian
+This is the source code for our  paper: **Higher-order Graph Convolutional Network with Flower-Petals Laplacians on Simplicial Complexes**
+
 
 <p align="center">
   <img src=".\img\bipartiteG3.png" width="600">
@@ -29,7 +30,6 @@ numpy
 ```
 
 # Run experiment with Cora:
-Todo: 把默认参数设定为cora
 
 go to folder `src`
 ```
@@ -89,7 +89,7 @@ python train_model.py --RPMAX 100 --net HiSCN --dataset Texas_null --lr 0.1 --al
 
 
 # Simplified generate Laplacian matrix function
-Due to the complexity and memory limitation, we offer the simplified version of generating higher-order Laplacian matrix.^_^
+Due to the complexity and memory limitation, we offer the simplified version of generating higher-order Laplacian matrix. ^_^
 
 We use the simplified function on the squirrel dataset, and other dataset use the origin function.
 
@@ -99,7 +99,7 @@ Please cite our paper if you use this code in your own work:
 
 ```
 
-Feel free to email us(yimingh999@foxmail.com, sssleverlily@gmail.com) if you have any further questions. 
+ 
 
 
 

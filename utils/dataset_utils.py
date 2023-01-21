@@ -196,9 +196,7 @@ def DataLoader(name, args):
             root='../data/film', transform=T.NormalizeFeatures())
         data = dataset[0]
     elif name in ['texas', 'cornell', 'wisconsin']:
-        dataset = WebKB(root='../data/',
-                        name=name, transform=T.NormalizeFeatures())
-
+        dataset = WebKB(root='../data/', name=name, transform=T.NormalizeFeatures())
         data = dataset[0]
     elif name in ['Texas_null']:
         """
@@ -259,6 +257,52 @@ def DataLoader(name, args):
     print("Home:", homo)
     print("Finish load data!")
     return dataset, data
+
+
+
+
+def index_to_mask(index, size):
+    mask = torch.zeros(size, dtype=torch.bool, device=index.device)
+    mask[index] = 1
+    return mask
+
+
+def random_planetoid_splits(data, num_classes, percls_trn=20, val_lb=500, Flag=0):
+    # Set new random planetoid splits:
+    # * round(train_rate*len(data)/num_classes) * num_classes labels for training
+    # * val_rate*len(data) labels for validation
+    # * rest labels for testing
+
+    indices = []
+    for i in range(num_classes):
+        index = (data.y == i).nonzero().view(-1)
+        # index = (data.y[:, i] == i).nonzero().view(-1)
+        index = index[torch.randperm(index.size(0))]
+        indices.append(index)
+
+    train_index = torch.cat([i[:percls_trn] for i in indices], dim=0)
+
+    if Flag == 0:
+        rest_index = torch.cat([i[percls_trn:] for i in indices], dim=0)
+        rest_index = rest_index[torch.randperm(rest_index.size(0))]
+
+        data.train_mask = index_to_mask(train_index, size=data.num_nodes)
+        data.val_mask = index_to_mask(rest_index[:val_lb], size=data.num_nodes)
+        data.test_mask = index_to_mask(
+            rest_index[val_lb:], size=data.num_nodes)
+    else:
+        val_index = torch.cat([i[percls_trn:percls_trn+val_lb]
+                               for i in indices], dim=0)
+        rest_index = torch.cat([i[percls_trn+val_lb:] for i in indices], dim=0)
+        rest_index = rest_index[torch.randperm(rest_index.size(0))]
+
+        data.train_mask = index_to_mask(train_index, size=data.num_nodes)
+        data.val_mask = index_to_mask(val_index, size=data.num_nodes)
+        data.test_mask = index_to_mask(rest_index, size=data.num_nodes)
+    return data
+
+
+
 
 
 class MyTransform(object):

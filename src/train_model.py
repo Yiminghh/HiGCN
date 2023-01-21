@@ -1,10 +1,7 @@
 import sys
 sys.path.append("..")
-import argparse
-from utils.dataset_utils import DataLoader
-from utils.utils import random_planetoid_splits
-from models.HiSCN_model import HiSCN
-from models.benchmarks import *
+from utils.dataset_utils import DataLoader, random_planetoid_splits
+from utils.param_utils import *
 import torch
 import torch.nn.functional as F
 from tqdm import tqdm
@@ -46,25 +43,9 @@ def RunExp(args, dataset, data, Net, percls_trn, val_lb):
 
     model, data = appnp_net.to(device), data.to(device)
 
-    if args.net in ['APPNP', 'GPRGNN']:
-        optimizer = torch.optim.Adam([{
-            'params': model.lin1.parameters(),
-            'weight_decay': args.weight_decay, 'lr': args.lr
-        },
-            {
-                'params': model.lin2.parameters(),
-                'weight_decay': args.weight_decay, 'lr': args.lr
-            },
-            {
-                'params': model.prop1.parameters(),
-                'weight_decay': 0.0, 'lr': args.lr
-            }
-        ],
-            lr=args.lr)
-    else:
-        optimizer = torch.optim.Adam(model.parameters(),
-                                     lr=args.lr,
-                                     weight_decay=args.weight_decay)
+    optimizer = torch.optim.Adam(model.parameters(),
+                                 lr=args.lr,
+                                 weight_decay=args.weight_decay)
 
     best_val_acc = test_acc = 0
     best_val_loss = float('inf')
@@ -81,7 +62,7 @@ def RunExp(args, dataset, data, Net, percls_trn, val_lb):
             best_val_loss = val_loss
             test_acc = tmp_test_acc
             # best_model_wts = copy.deepcopy(model.state_dict())
-            if args.net == 'HiSCN':
+            if args.net == 'HiGCN':
                 TEST1 = appnp_net.hgc[0].fW.clone()
                 Alpha1 = TEST1.detach().cpu().numpy()
                 TEST2 = appnp_net.hgc[1].fW.clone()
@@ -101,72 +82,8 @@ def RunExp(args, dataset, data, Net, percls_trn, val_lb):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset', default='Texas_null', help='dataset name')
-    parser.add_argument('--RPMAX', type=int, default=100, help='repeat times')
-    parser.add_argument('--Order', type=int, default=2,help='max simplix dimension')
-    parser.add_argument('--epochs', type=int, default=1000)
-    parser.add_argument('--early_stopping', type=int, default=200)
-    parser.add_argument('--lr', type=float, default=0.1)
-    parser.add_argument('--alpha', type=float, default=0.5)
-    parser.add_argument('--weight_decay', type=float, default=0.0001)
-    parser.add_argument('--dprate', type=float, default=0.5)
-    parser.add_argument('--dropout', type=float, default=0.5)
-    parser.add_argument('--K', type=int, default=10)
-    parser.add_argument('--train_rate', type=float, default=0.6)
-    parser.add_argument('--val_rate', type=float, default=0.2)
-    parser.add_argument('--hidden', type=int, default=32)
-    parser.add_argument('--print_freq', type=int, default=20)
-    parser.add_argument('--cuda', type=int, default=0)
-    parser.add_argument('--rho', type=str,
-                        choices=['-0.5', '-0.4', '-0.3', '-0.2', '-0.1', '0.1', '0.2', '0.3', '0.4', '0.5'],
-                        default='0.1', help='adjustable triangle density for null model')
-    parser.add_argument('--net', type=str,
-                        choices=['GCN', 'GAT', 'APPNP', 'ChebNet', 'JKNet', 'GPRGNN', 'BernNet', 'HiSCN'],
-                        default='HiSCN',
-                        )
-    """
-    The following arguments are used in the benchmarks!
-    """
-    parser.add_argument('--heads', default=8, type=int)
-    parser.add_argument('--output_heads', default=1, type=int)
-    parser.add_argument('--C', type=int)
-    parser.add_argument('--Init', type=str, default='PPR')
-    parser.add_argument('--Gamma', default=None)
-    parser.add_argument('--ppnp', choices=['PPNP', 'GPR_prop'], default='GPR_prop')
-    parser.add_argument('--Bern_lr', type=float, default=0.002, help='learning rate for BernNet propagation layer.')
-    args = parser.parse_args()
-
-    """
-    这边的参数后面要删掉
-    """
-    # args.dataset='Texas_null'
-    # args.lr=0.1
-    # args.alpha=0.5
-    # args.weight_decay=0.0001
-    # args.dprate=0.7
-    # args.dropout=0.7
-    # # args.net = 'HiSCN'
-    # args.RPMAX = 10
-    # args.early_stopping=200
-
-    gnn_name = args.net
-    if gnn_name == 'GCN':
-        Net = GCN_Net
-    elif gnn_name == 'GAT':
-        Net = GAT_Net
-    elif gnn_name == 'APPNP':
-        Net = APPNP_Net
-    elif gnn_name == 'ChebNet':
-        Net = ChebNet
-    elif gnn_name == 'JKNet':
-        Net = GCN_JKNet
-    elif gnn_name == 'GPRGNN':
-        Net = GPRGNN
-    elif gnn_name == 'BernNet':
-        Net = BernNet
-    elif gnn_name == 'HiSCN':
-        Net = HiSCN
+    args = parse_args()
+    Net = get_net(args.net)
 
     dataset, data = DataLoader(args.dataset, args)
 
@@ -201,8 +118,7 @@ if __name__ == '__main__':
 
     test_acc_mean, val_acc_mean = np.mean(Results0, axis=0) * 100
     test_acc_std = np.sqrt(np.var(Results0, axis=0)[0]) * 100
-    print(f'{gnn_name} on dataset {args.dataset}, in {RPMAX} repeated experiment:')
-    print(
-        f'test acc mean = {test_acc_mean:.4f} \t test acc std = {test_acc_std:.4f} \t val acc mean = {val_acc_mean:.4f}')
+    print(f'{args.net} on dataset {args.dataset}, in {RPMAX} repeated experiment:')
+    print(f'test acc mean = {test_acc_mean:.4f} \t test acc std = {test_acc_std:.4f} \t val acc mean = {val_acc_mean:.4f}')
 
 

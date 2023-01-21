@@ -2,9 +2,9 @@ import sys
 sys.path.append("..")
 import scipy.stats as st
 import argparse
-from utils.dataset_utils import DataLoader
-from utils.utils import random_planetoid_splits
-from models.HiSCN_model import HiSCN
+from utils.dataset_utils import DataLoader, random_planetoid_splits
+from utils.param_utils import *
+from models.HiGCN_model import HiGCN
 from models.benchmarks import *
 import torch
 import torch.nn.functional as F
@@ -114,8 +114,8 @@ def RunExp(args, dataset, data, Net, percls_trn, val_lb):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset', default='Texas_null', help='dataset name')
-    parser.add_argument('--RPMAX', type=int, default=100, help='repeat times')
+    parser.add_argument('--dataset', default='squirrel', help='dataset name')
+    parser.add_argument('--RPMAX', type=int, default=50, help='repeat times')
     parser.add_argument('--epochs', type=int, default=1000)
     parser.add_argument('--early_stopping', type=int, default=200)
 
@@ -139,8 +139,8 @@ if __name__ == '__main__':
     parser.add_argument('--output_heads', default=1, type=int)
     parser.add_argument('--cuda', type=int, default=0)
     parser.add_argument('--net', type=str,
-                        choices=['GCN', 'GAT', 'APPNP', 'ChebNet', 'JKNet', 'GPRGNN', 'BernNet', 'HiSCN', 'Texas_null'],
-                        default='HiSCN',
+                        choices=['GCN', 'GAT', 'APPNP', 'ChebNet', 'JKNet', 'GPRGNN', 'BernNet', 'HiGCN', 'Texas_null'],
+                        default='HiGCN',
                         help='Texas_null is a null model to test different effect of higher-order structures')
     parser.add_argument('--Bern_lr', type=float, default=0.002, help='learning rate for BernNet propagation layer.')
     parser.add_argument('--rho', type=str,
@@ -148,23 +148,7 @@ if __name__ == '__main__':
                         default='0.1', help='adjustable triangle density for null model')
 
     args = parser.parse_args()
-    gnn_name = args.net
-    if gnn_name == 'GCN':
-        Net = GCN_Net
-    elif gnn_name == 'GAT':
-        Net = GAT_Net
-    elif gnn_name == 'APPNP':
-        Net = APPNP_Net
-    elif gnn_name == 'ChebNet':
-        Net = ChebNet
-    elif gnn_name == 'JKNet':
-        Net = GCN_JKNet
-    elif gnn_name == 'GPRGNN':
-        Net = GPRGNN
-    elif gnn_name == 'BernNet':
-        Net = BernNet
-    elif gnn_name == 'HiSCN':
-        Net = HiSCN
+    Net = get_net(args.net)
 
     dataset, data = DataLoader(args.dataset, args)
 
@@ -188,7 +172,7 @@ if __name__ == '__main__':
     ga1 = []
     ga2 = []
     for RP in tqdm(range(RPMAX)):
-        if args.net == 'HiSCN':
+        if args.net == 'HiGCN':
             test_acc, best_val_acc, Gamma_0, Gamma_1 = RunExp(
             args, dataset, data, Net, percls_trn, val_lb)
             ga2.append(Gamma_1.tolist())
@@ -205,7 +189,7 @@ if __name__ == '__main__':
 
     test_acc_mean, val_acc_mean, _ = np.mean(Results0, axis=0) * 100
     test_acc_std = np.sqrt(np.var(Results0, axis=0)[0]) * 100
-    print(f'{gnn_name} on dataset {args.dataset}, in {RPMAX} repeated experiment:')
+    print(f'{args.net} on dataset {args.dataset}, in {RPMAX} repeated experiment:')
     print(
         f'test acc mean = {test_acc_mean:.4f} \t test acc std = {test_acc_std:.4f} \t val acc mean = {val_acc_mean:.4f}')
 
