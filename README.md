@@ -4,7 +4,7 @@ This is the source code for our  paper: **Higher-order Graph Convolutional Netwo
 
 
 <p align="center">
-  <img src=".\img\bipartiteG3.png" width="600">
+  <img src=".\img\FP_model.png" width="600">
 </p>
 
 [//]: # (Hidden state feature extraction is performed by a neural networks using individual node features propagated via GPR. Note that both the GPR weights <img src="https://render.githubusercontent.com/render/math?math=\gamma_k"> and parameter set <img src="https://render.githubusercontent.com/render/math?math=\{\theta\}"> of the neural network are learned simultaneously in an end-to-end fashion &#40;as indicated in red&#41;.)
@@ -45,15 +45,10 @@ python train_model.py --RPMAX 100 \
 # Repreduce results in Table 2:
 
 To reproduce the results in Table 2 of [our paper](https://openreview.net/forum?id=n6jl7fLxrP) you need to first perform hyperparameter tuning. 
-For details of optimization of all models, please refer to section D.2 in Appendix of our paper. Here are the settings for HiSCN:
+For details of optimization of all models, please refer to section D.2 in Appendix of our paper. Here are the settings for HiGCN:
 
 We choose random walk path lengths with K = 10 and use a 2-layer (MLP) with 32 hidden units for the NN component. 
 
-[//]: # (For the GPR weights, we use different initializations including PPR with <img src="https://render.githubusercontent.com/render/math?math=\alpha\in\{0.1, 0.2, 0.5, 0.9\}">, <img src="https://render.githubusercontent.com/render/math?math=\gamma_k=\delta_{0k}"> or <img src="https://render.githubusercontent.com/render/math?math=\delta_{Kk}"> and the default random initialization in pytorch. Similarly, for APPNP we search the optimal <img src="https://render.githubusercontent.com/render/math?math=\alpha\in\{0.1, 0.2, 0.5, 0.9\}">. For other hyperparameter tuning, we optimize the learning rate over {0.002, 0.01, 0.05} and weight decay {0.0, 0.0005} for all models. )
-
-<!-- <img src="https://render.githubusercontent.com/render/math?math=\alpha\in\{0.1, 0.2, 0.5, 0.9\}">
-<img src="https://render.githubusercontent.com/render/math?math=\gamma_k=\delta_{0k}">
-<img src="https://render.githubusercontent.com/render/math?math=\delta_{Kk}"> -->
 
 
 Here is a list of hyperparameters for your reference:
