@@ -168,7 +168,7 @@ class WebKB(InMemoryDataset):
 
 def DataLoader(name, args):
     # calculate higher_order adj-matrix and  save
-    calculate_ = True if args.net in ['HiSCN','HIMnet'] else False
+    calculate_ = True if args.net in ['HiGCN', 'HIMnet','HiSCN'] else False
     hl_path = osp.join('..\\data\\' + name + '\\HL_' + name + '.pt') # 存储hl的路径
 
     if name in ['cora', 'citeseer', 'pubmed']:
