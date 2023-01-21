@@ -2,10 +2,9 @@ import argparse
 
 from ray.tune.search.bayesopt import BayesOptSearch
 
-from utils.dataset_utils import DataLoader, creat_L_SparseTensor
-from utils.utils import random_planetoid_splits
-from models.HiSCN_model import HiSCN
-from models.benchmarks import *
+from utils.dataset_utils import DataLoader,  random_planetoid_splits
+from utils.param_utils import *
+
 
 import torch
 import torch.nn.functional as F
@@ -136,7 +135,7 @@ def trainable_large(config):
     args.lr = config['lr']
     args.alpha = config['alpha']
     # args.weight_decay = config['weight_decay']
-    args.dprate = config['dp']
+    args.dprate = config['dropout']
     args.dropout = config['dropout']
     args.early_stopping = int(config['early_stopping'])*100
 
@@ -160,7 +159,7 @@ def trainable_large(config):
 def trainable(config, dataset, data):
     args.lr = config['lr']
     args.alpha = config['alpha']
-    args.weight_decay = config['weight_decay']
+    #args.weight_decay = config['weight_decay']
     args.dprate = config['dp']
     args.dropout = config['dropout']
     args.early_stopping = int(config['early_stopping'])*100
@@ -185,8 +184,8 @@ def trainable(config, dataset, data):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset', default='squirrel')  # 更改数据集
-    parser.add_argument('--RPMAX', type=int, default=39)  # 重复执行次数,10
+    parser.add_argument('--dataset', default='chameleon')  # 更改数据集
+    parser.add_argument('--RPMAX', type=int, default=50)  # 重复执行次数,10
     parser.add_argument('--epochs', type=int, default=1000)  # 1000
     parser.add_argument('--early_stopping', type=int, default=200)  # 200
 
@@ -217,42 +216,38 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    # args.lr = 0.01
-    # args.alpha = 0.9
-    # args.weight_decay = 0.0
-    # args.dprate = 0.7
+    args.lr = 0.01
+    args.alpha = 0.9
+    args.weight_decay = 0.0
+    args.dprate = 0.7
 
     dataset, data = DataLoader(args.dataset, args)
     ray.init()
+    Net = get_net(args.net)
 
     gnn_name = args.net
-    if gnn_name == 'GCN':
-        Net = GCN_Net
-    elif gnn_name == 'GAT':
-        Net = GAT_Net
-    elif gnn_name == 'APPNP':
-        Net = APPNP_Net
-    elif gnn_name == 'ChebNet':
-        Net = ChebNet
-    elif gnn_name == 'JKNet':
-        Net = GCN_JKNet
-    elif gnn_name == 'GPRGNN':
-        Net = GPRGNN
-    elif gnn_name == 'HiSCN':
-        Net = HiSCN
 
+
+    # config = {  # 设定需要搜索的超参空间
+    #     "threads": 2,
+    #     "early_stopping": tune.uniform(2, 7),
+    #     # "weight_decay": tune.choice([0.0, 0.0005, 0.001]),
+    #     # "alpha": tune.choice([0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]),
+    #     # "dp": tune.choice([0.0, 0.3, 0.5, 0.7, 0.9]),
+    #     # "dropout": tune.choice([0.0, 0.3, 0.5, 0.7, 0.9]),
+    #     "lr": tune.loguniform(1e-2, 8e-1),
+    #     #"weight_decay": tune.loguniform(1e-8, 5e-3),
+    #     "alpha": tune.uniform(0.0, 1.0),
+    #     "dp": tune.uniform(0.0, 0.9),
+    #     "dropout": tune.uniform(0.0, 0.9),
+    # }
     config = {  # 设定需要搜索的超参空间
         "threads": 2,
-        "early_stopping": tune.uniform(1, 6),
-        # "weight_decay": tune.choice([0.0, 0.0005, 0.001]),
-        # "alpha": tune.choice([0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]),
-        # "dp": tune.choice([0.0, 0.3, 0.5, 0.7, 0.9]),
-        # "dropout": tune.choice([0.0, 0.3, 0.5, 0.7, 0.9]),
-        "lr": tune.loguniform(1e-2, 9e-1),
-        "weight_decay": tune.loguniform(1e-8, 5e-3),
-        "alpha": tune.uniform(0.0, 1.0),
-        "dp": tune.uniform(0.0, 0.9),
-        "dropout": tune.uniform(0.0, 0.9),
+        "early_stopping": tune.choice([2,4,5]),
+        "lr": tune.choice([0.001,0.01,0.1,0.2,0.3,0.4,0.5,0.6,0.7]),
+        # "weight_decay": tune.loguniform(1e-8, 5e-3),
+        "alpha": tune.choice([0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,1.0]),
+        "dropout": tune.choice([0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8]),
     }
     # 选择超参优化器及指定其参数
     sched = AsyncHyperBandScheduler(
@@ -280,7 +275,7 @@ if __name__ == '__main__':
         metric='mean_accuracy',  # 最后比较的指标
         mode='max',  # 指标越大越好
         scheduler=sched,
-        search_alg=BayesOptSearch(random_search_steps=6),#贝叶斯优化来进行调参，默认是通过网格化生成参数，并从网格中随机选取参数，random_search_steps初始化随机搜索参数，这对于避免贝叶斯过程的初始局部过拟合是必要的
+        #search_alg=BayesOptSearch(random_search_steps=6),#贝叶斯优化来进行调参，默认是通过网格化生成参数，并从网格中随机选取参数，random_search_steps初始化随机搜索参数，这对于避免贝叶斯过程的初始局部过拟合是必要的
         num_samples=300,  # 总共运行Trails的数目。从超参数空间采样的次数
         resources_per_trial={"cpu": 8, "gpu": 1},  # 每个Trail可支配的计算资源
         config=config,

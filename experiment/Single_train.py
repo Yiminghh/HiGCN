@@ -3,10 +3,8 @@ import sys
 sys.path.append("..")
 import scipy.stats as st
 import argparse
-from utils.dataset_utils import DataLoader
-from utils.utils import random_planetoid_splits
-from models.HiSCN_model import HiSCN
-from models.HIMnet import HIMnet
+from utils.dataset_utils import DataLoader, random_planetoid_splits
+from utils.param_utils import *
 from models.benchmarks import *
 import torch
 import torch.nn.functional as F
@@ -82,29 +80,22 @@ if __name__ == '__main__':
     parser.add_argument('--heads', default=8, type=int)
     parser.add_argument('--output_heads', default=1, type=int)
     parser.add_argument('--cuda', type=int, default=0)
-    parser.add_argument('--net', type=str, choices=['GCN', 'GAT', 'APPNP', 'ChebNet', 'JKNet', 'GPRGNN','HeGCN','HeGCN_exp','HeGCN_exp_new'],
-                        default='HIMnet')
+    parser.add_argument('--net', type=str, choices=['GCN', 'GAT', 'APPNP', 'ChebNet', 'JKNet', 'GPRGNN','HiGCN'],
+                        default='HiGCN')
 
     args = parser.parse_args()
 
-    args.dataset = 'cora'
-    args.RPMAX = 20
-    args.lr = 0.1
-    args.alpha = 0.5
-    args.weight_decay = 0.001
-    args.dprate = 0.3
+    args.dataset = 'squirrel'
+    args.RPMAX = 50
+    args.lr = 0.5
+    args.alpha = 0.1
+    args.weight_decay = 0.000
+    args.dprate = 0.6
 
     dataset, data = DataLoader(args.dataset, args)
 
     gnn_name = args.net
-    if gnn_name == 'GCN': Net = GCN_Net
-    elif gnn_name == 'GAT': Net = GAT_Net
-    elif gnn_name == 'APPNP': Net = APPNP_Net
-    elif gnn_name == 'ChebNet': Net = ChebNet
-    elif gnn_name == 'JKNet': Net = GCN_JKNet
-    elif gnn_name == 'GPRGNN': Net = GPRGNN
-    elif gnn_name == 'HiSCN': Net = HiSCN
-    elif gnn_name == 'HIMnet': Net = HIMnet
+    Net = get_net(args.net)
 
 
     percls_trn = int(round(args.train_rate * len(data.y) / dataset.num_classes))
