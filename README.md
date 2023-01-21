@@ -34,7 +34,7 @@ numpy
 go to folder `src`
 ```
 python train_model.py --RPMAX 100 \
-        --net HiSCN \
+        --net HiGCN \
         --dataset cora \
         --lr 0.1 \
         --alpha 0.5 \
@@ -64,9 +64,9 @@ We find that learning rate (lr) and weight decay (wd) has huge influence on the 
 - For pubmed, we choose lr = 0.05, alpha = 0.8, wd = 0.005, dprate = 0.2.
 - For computers, we choose lr = 0.1, alpha = 0.0, wd = 0.0, dprate = 0.7.
 - For Photo, we choose lr = 0.1, alpha = 0.3, wd = 0.0, dropout = 0.3, dprate = 0.6.
-- For chameleon, we choose lr = 0.08, alpha = 0.4, wd = 0, dropout = 0.65, dprate = 0.85, early_stopping = 400.
+- For chameleon, we choose lr = 0.08, alpha = 0.4, wd = 0.0, dropout = 0.65, dprate = 0.85, early_stopping = 400.
 - For Actor, we choose lr = 0.03, alpha = 0.4, wd = 0, dropout = 0.9, dprate = 0.7, early_stopping = 500.
-- For squirrel, we choose lr = 0.5, alpha = 0.7, wd = 0, early_stopping = 500.
+- For squirrel, we choose lr = 0.3, alpha = 1.0, wd = 0.0,  dropout = 0.6, dprate = 0.6, early_stopping = 500.
 - For Texas, we choose lr = 0.1, alpha = 0.5, wd = 0.0001, dropout = 0.7, dprate = 0.7.
 - For Wisconsin, we choose lr = 0.2, alpha = 0.7, wd = 0.0005, dropout = 0.6, dprate = 0.2, early_stopping = 400.
 
