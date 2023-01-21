@@ -61,7 +61,7 @@ def get_net(gnn_name):
         Net = GPRGNN
     elif gnn_name == 'BernNet':
         Net = BernNet
-    elif gnn_name == 'HiSCN':
+    elif gnn_name == 'HiGCN':
         Net = HiGCN
 
     return Net

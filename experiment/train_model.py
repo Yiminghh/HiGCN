@@ -237,7 +237,7 @@ if __name__ == '__main__':
     print(f'val acc: {val_acc_mean:.4f},+{high_CI_bound_val:.2f},-{low_CI_bound_val:.2f} ')
 
     with open('../log_hand_' + args.dataset + '.txt', 'a') as f:
-        f.write(f'Dataset {args.dataset}, in {RPMAX} repeated experiment ({gnn_name}):\n')
+        f.write(f'Dataset {args.dataset}, in {RPMAX} repeated experiment ({args.net}):\n')
         f.write(
             f'** test acc mean = {test_acc_mean:.4f} \t test acc std = {test_acc_std:.4f} \t val acc mean = {val_acc_mean:.4f}\n**')
         # 打印参数
