@@ -4,7 +4,7 @@ This is the source code for our  paper: **Higher-order Graph Convolutional Netwo
 
 
 <p align="center">
-  <img src=".\img\FP_model.png" width="600">
+  <img src=".\img\FP_model.png" width="700">
 </p>
 
 [//]: # (Hidden state feature extraction is performed by a neural networks using individual node features propagated via GPR. Note that both the GPR weights <img src="https://render.githubusercontent.com/render/math?math=\gamma_k"> and parameter set <img src="https://render.githubusercontent.com/render/math?math=\{\theta\}"> of the neural network are learned simultaneously in an end-to-end fashion &#40;as indicated in red&#41;.)
