@@ -53,8 +53,8 @@ We find that learning rate (lr) and weight decay (wd) has huge influence on the 
 - For chameleon, we choose lr = 0.1, alpha = 0.4, wd = 0.0, dropout = 0.8, dprate = 0.7, early_stopping = 500.
 - For Actor, we choose lr = 0.01, alpha = 0.5, wd = 0.001, dropout = 0.8, dprate = 0.8, early_stopping = 500.
 - For squirrel, we choose lr = 0.3, alpha = 1.0, wd = 0.0,  dropout = 0.6, dprate = 0.6, early_stopping = 500.
-- For Texas, we choose lr = 0.1, alpha = 0.8, wd = 0.0001, dropout = 0.6, dprate = 0.6, early_stopping = 500.
-- For Wisconsin, we choose lr = 0.2, alpha = 0.7, wd = 0.0001, dropout = 0.6, dprate = 0.6, early_stopping = 500.
+- For Texas, we choose lr = 0.1, alpha = 0.8, dropout = 0.6, dprate = 0.6, early_stopping = 500.
+- For Wisconsin, we choose lr = 0.2, alpha = 0.7, dropout = 0.6, dprate = 0.6, early_stopping = 500.
 
 We provide more hyperparameter details on the Reproduce_HiGCN.sh. 
 If some hyperparameter are not given above, it is same as the default value in the train_model.py.
