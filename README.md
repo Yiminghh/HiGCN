@@ -7,7 +7,6 @@ This is the source code for our  paper: **Higher-order Graph Convolutional Netwo
   <img src=".\img\FP_model.png" width="700">
 </p>
 
-[//]: # (Hidden state feature extraction is performed by a neural networks using individual node features propagated via GPR. Note that both the GPR weights <img src="https://render.githubusercontent.com/render/math?math=\gamma_k"> and parameter set <img src="https://render.githubusercontent.com/render/math?math=\{\theta\}"> of the neural network are learned simultaneously in an end-to-end fashion &#40;as indicated in red&#41;.)
 The simplicial complexes (SCs) are a powerful tool to model higher-order interactions with elegant and potent mathematical tools. 
 We creatively construct a higher-order **flower-petals (FP) model** and introduce **FP Laplacians** to study SCs.
 Additionally, we propose a higher-order graph convolutional network (**HiGCN**) based on the FP Laplacians, which can capture intrinsic topology features at different scales.
