@@ -134,7 +134,7 @@ def real_train(args, __dataset, __data, checkpoint_dir=None):
 def trainable_large(config):
     args.lr = config['lr']
     args.alpha = config['alpha']
-    # args.weight_decay = config['weight_decay']
+    args.weight_decay = config['weight_decay']
     args.dprate = config['dropout']
     args.dropout = config['dropout']
     args.early_stopping = int(config['early_stopping'])*100
@@ -184,7 +184,7 @@ def trainable(config, dataset, data):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset', default='chameleon')  # 更改数据集
+    parser.add_argument('--dataset', default='film')  # 更改数据集
     parser.add_argument('--RPMAX', type=int, default=50)  # 重复执行次数,10
     parser.add_argument('--epochs', type=int, default=1000)  # 1000
     parser.add_argument('--early_stopping', type=int, default=200)  # 200
@@ -211,8 +211,8 @@ if __name__ == '__main__':
     parser.add_argument('--output_heads', default=1, type=int)
     parser.add_argument('--cuda', type=int, default=0)
     parser.add_argument('--net', type=str,
-                        choices=['GCN', 'GAT', 'APPNP', 'ChebNet', 'JKNet', 'GPRGNN', 'HeGCN', 'HiSCN','HeGCN_exp_new'],
-                        default='HiSCN')
+                        choices=['GCN', 'GAT', 'APPNP', 'ChebNet', 'JKNet', 'GPRGNN', 'HeGCN', 'HiSCN','HiGCN','HeGCN_exp_new'],
+                        default='HiGCN')
 
     args = parser.parse_args()
 
@@ -243,9 +243,9 @@ if __name__ == '__main__':
     # }
     config = {  # 设定需要搜索的超参空间
         "threads": 2,
-        "early_stopping": tune.choice([2,4,5]),
-        "lr": tune.choice([0.001,0.01,0.1,0.2,0.3,0.4,0.5,0.6,0.7]),
-        # "weight_decay": tune.loguniform(1e-8, 5e-3),
+        "early_stopping": tune.choice([5]),
+        "lr": tune.choice([0.001,0.005,0.01,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7]),#[0.001,0.005,0.01,0.05,0.08,0.1,0.2,0.3,0.4,0.5,0.6,0.7]
+        "weight_decay": tune.choice([0.0, 0.0001, 0.0005, 0.001, 0.005, 0.1]),
         "alpha": tune.choice([0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,1.0]),
         "dropout": tune.choice([0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8]),
     }

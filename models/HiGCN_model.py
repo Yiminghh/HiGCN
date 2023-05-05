@@ -6,7 +6,7 @@ import torch
 import torch.nn.functional as F
 import numpy as np
 import torch.nn as nn
-from torch_geometric.nn.conv.gcn_conv import gcn_norm
+#from torch_geometric.nn.conv.gcn_conv import gcn_norm
 from torch.nn import Parameter
 from torch.nn import Linear
 from torch_geometric.nn import GATConv, GCNConv, ChebConv
@@ -121,6 +121,6 @@ class HiGCN(torch.nn.Module):
         x_concat = self.lin_out(x_concat)
         # x_concat = F.leaky_relu(x_concat)
 
-        return F.log_softmax(x_concat, dim=1)  # 为什么要加log_softmax
+        return F.log_softmax(x_concat, dim=1)
 
 

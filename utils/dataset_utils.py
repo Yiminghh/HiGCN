@@ -166,11 +166,7 @@ class WebKB(InMemoryDataset):
         return '{}()'.format(self.name)
 
 
-def DataLoader(name, args):
-    # calculate higher_order adj-matrix and  save
-    calculate_ = True if args.net in ['HiGCN', 'HIMnet','HiSCN'] else False
-    hl_path = osp.join('..\\data\\' + name + '\\HL_' + name + '.pt') # 存储hl的路径
-
+def graphLoader(name):
     if name in ['cora', 'citeseer', 'pubmed']:
         root_path = '../'
         path = osp.join(root_path, 'data', name)
@@ -198,6 +194,47 @@ def DataLoader(name, args):
     elif name in ['texas', 'cornell', 'wisconsin']:
         dataset = WebKB(root='../data/', name=name, transform=T.NormalizeFeatures())
         data = dataset[0]
+    else:
+        raise ValueError(f'dataset {name} not supported in graphLoader')
+
+    return data, dataset
+
+def DataLoader(name, args):
+    # calculate higher_order adj-matrix and  save
+    calculate_ = True if args.net in ['HiGCN', 'HIMnet','HiSCN'] else False
+    hl_path = osp.join('..\\data\\' + name + '\\HL_' + name + '.pt') # 存储hl的路径
+
+    # if name in ['cora', 'citeseer', 'pubmed']:
+    #     root_path = '../'
+    #     path = osp.join(root_path, 'data', name)
+    #     dataset = Planetoid(path, name=name)
+    #     data = dataset[0]
+    # elif name in ['computers', 'photo']:
+    #     root_path = '../'
+    #     path = osp.join(root_path, 'data', name)
+    #     dataset = Amazon(path, name, T.NormalizeFeatures())
+    #     data = dataset[0]
+    # elif name in ['chameleon', 'squirrel']:
+    #     # use everything from "geom_gcn_preprocess=False" and
+    #     # only the node label y from "geom_gcn_preprocess=True"
+    #     preProcDs = WikipediaNetwork(
+    #         root='../data/', name=name, geom_gcn_preprocess=False, transform=T.NormalizeFeatures())
+    #     dataset = WikipediaNetwork(
+    #         root='../data/', name=name, geom_gcn_preprocess=True, transform=T.NormalizeFeatures())
+    #     data = dataset[0]
+    #     data.edge_index = preProcDs[0].edge_index
+    #     # return dataset, data
+    # elif name in ['film']:
+    #     dataset = Actor(
+    #         root='../data/film', transform=T.NormalizeFeatures())
+    #     data = dataset[0]
+    # elif name in ['texas', 'cornell', 'wisconsin']:
+    #     dataset = WebKB(root='../data/', name=name, transform=T.NormalizeFeatures())
+    #     data = dataset[0]
+
+    if name in ['cora', 'citeseer', 'pubmed', 'computers', 'photo', 'chameleon', 'squirrel', 'film', 'texas', 'cornell', 'wisconsin']:
+        data, dataset = graphLoader(name)
+
     elif name in ['Texas_null']:
         """
         Texas_null is a null model to test different effect of higher-order structures
