@@ -167,7 +167,7 @@ class WebKB(InMemoryDataset):
 
 
 def graphLoader(name):
-    root_path  = osp.join('./', 'data')
+    root_path  = osp.join('../', 'data')
     if name in ['cora', 'citeseer', 'pubmed']:
         path = osp.join(root_path, name)
         dataset = Planetoid(path, name=name)
@@ -201,7 +201,7 @@ def DataLoader(name, args):
     # calculate higher_order adj-matrix and  save
     calculate_ = True if args.net in ['HiGCN', 'HIMnet','HiSCN'] else False
     #hl_path = osp.join('..\\data\\' + name + '\\HL_' + name + '.pt') # 存储hl的路径
-    hl_path = osp.join('.', 'data', name + '\\HL_' + name + '.pt') # 存储hl的路径
+    hl_path = osp.join('..', 'data', name + '\\HL_' + name + '.pt') # 存储hl的路径
 
     # if name in ['cora', 'citeseer', 'pubmed']:
     #     root_path = '../'

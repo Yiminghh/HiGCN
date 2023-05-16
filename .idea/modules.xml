@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/HiSCN.iml" filepath="$PROJECT_DIR$/.idea/HiSCN.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/HiGCN.iml" filepath="$PROJECT_DIR$/.idea/HiGCN.iml" />
     </modules>
   </component>
 </project>

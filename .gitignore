@@ -146,3 +146,9 @@ dmypy.json
 /node_classify/data/wisconsin/raw/
 /node_classify/data/pubmed/SCNN/
 /node_classify/data/photo/SCNN/
+/graph_classify/datasets/PTC/complex_dim2_mean/
+/graph_classify/datasets/PROTEINS/complex_dim2_mean/
+/graph_classify/datasets/PROTEINS/complex_dim2_sum/
+/graph_classify/datasets/MUTAG/complex_dim2_mean/
+/graph_classify/datasets/IMDBMULTI/complex_dim2_mean/
+/graph_classify/datasets/IMDBBINARY/complex_dim2_mean/

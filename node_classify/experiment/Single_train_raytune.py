@@ -2,8 +2,8 @@ import argparse
 
 from ray.tune.search.bayesopt import BayesOptSearch
 
-from utils.dataset_utils import DataLoader,  random_planetoid_splits
-from utils.param_utils import *
+from node_classify.utils.dataset_utils import DataLoader,  random_planetoid_splits
+from node_classify.utils.param_utils import *
 
 
 import torch
