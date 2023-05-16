@@ -2,7 +2,7 @@
 
 # Below is for homophily datasets
 
-python train_model.py --RPMAX 100 --net HiGCN --dataset cora --lr 0.1 --alpha 0.5 --weight_decay 0.001 --dprate 0.3
+python run_node_exp.py --RPMAX 100 --net HiGCN --dataset cora --lr 0.1 --alpha 0.5 --weight_decay 0.001 --dprate 0.3
 
 python train_model.py --RPMAX 100 --net HiGCN --dataset citeseer --lr 0.05 --alpha 0.7 --weight_decay 0.1 --dprate 0.2 --dropout 0.2
 
