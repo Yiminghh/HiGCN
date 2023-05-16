@@ -1,5 +1,5 @@
 import sys
-sys.path.append("..")
+#sys.path.append("..")
 from node_classify.utils.dataset_utils import DataLoader, random_planetoid_splits
 from node_classify.utils.param_utils import *
 import torch
