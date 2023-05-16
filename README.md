@@ -22,8 +22,9 @@ numpy
 
 # Run experiment with Cora:
 
-go to folder `src`
-```
+
+```sh
+cd node_classify
 python train_model.py --RPMAX 100 \
         --net HiGCN \
         --dataset cora \
@@ -69,7 +70,7 @@ If you want to run null model dataset, just change Dataset name as Texas_null an
 `['-0.5', '-0.4', '-0.3', '-0.2', '-0.1', '0.1', '0.2', '0.3', '0.4', '0.5']` (mentiond: `--rho` need to be string)
 `rho=0.5` means the network has 50% plus triangles of the origin network.
 
-```
+```sh
 python train_model.py --RPMAX 100 --net HiGCN --dataset Texas_null --lr 0.1 --alpha 0.5 --weight_decay 0.001 --dprate 0.3 --rho='0.1'
 ```
 
