@@ -51,7 +51,7 @@ def RunExp(args, data, model, print_log=False):
         return corr
 
 
-    criterion = nn.L1Loss(reduction="sum")
+    criterion = nn.L1Loss(reduction="mean")#sum
     #criterion = new_rank_loss
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model, data = model.to(device), data.to(device)
@@ -94,33 +94,40 @@ def parse_args():
     parser.add_argument('--dataset', default='History', help='dataset name')
     parser.add_argument('--RPMAX', type=int, default=10, help='repeat times')
     parser.add_argument('--Order', type=int, default=3, help='max simplix dimension')
-    parser.add_argument('--miss_percentage', type=int, default=10, help='percentage_missing_values')
-    parser.add_argument('--epochs', type=int, default=500)#1000
+    #parser.add_argument('--miss_percentage', type=int, default=10, help='percentage_missing_values')
+    parser.add_argument('--epochs', type=int, default=300)#1000
     parser.add_argument('--lr', type=float, default=0.001)
     parser.add_argument('--alpha', type=float, default=0.9)
-    parser.add_argument('--weight_decay', type=float, default=0.0000)
-    parser.add_argument('--dprate', type=float, default=0.05)
-    parser.add_argument('--dropout', type=float, default=0.05)
+    parser.add_argument('--weight_decay', type=float, default=0.0005)
+    parser.add_argument('--dprate', type=float, default=0.00)
+    parser.add_argument('--dropout', type=float, default=0.00)
     parser.add_argument('--K', type=int, default=10)
     parser.add_argument('--hidden', type=int, default=32)
     parser.add_argument('--print_freq', type=int, default=20)
     parser.add_argument('--cuda', type=int, default=0)
     parser.add_argument('--hubOrder', type=int, default=0, help='fix to 0')
-    parser.add_argument('--train_rate', type=float, default=0.1)
-    parser.add_argument('--net', type=str,  choices=['HiGCN','SNN','SCNN'], default='HiGCN',)
+    parser.add_argument('--train_rate', type=float, default=0.1)#0.1
+    parser.add_argument('--net', type=str,  choices=['HiGCN', 'SNN', 'SCNN'], default='HiGCN',)
     args = parser.parse_args()
 
     return args
 
+
+def set_args():
+    args = parse_args()
+    args.dataset = 'Geology'
+    args.alpha = 1.0
+    args.lr = 0.001
+    args.weight_decay = 0.0005
+    args.hidden = 32
+    args.train_rate = 0.90
+    args.Order = 3
+    args.net = 'HiGCN'
+
 if __name__ == '__main__':
 
     args = parse_args()
-    args.dataset = 'Geology'
-    args.alpha = 0.1
-    args.hidden = 32
-    args.train_rate=0.30
-    args.maxOrder = 3
-    args.net = 'SCNN'
+    #args = set_args()
     print("args = ", args)
 
 

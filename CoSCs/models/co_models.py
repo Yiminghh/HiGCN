@@ -24,7 +24,7 @@ class co_HiGCN(torch.nn.Module):
             self.lin_in.append(Linear( self.in_dim, args.hidden))
             self.hgc.append(HiGCN_prop(args.K, args.alpha, args.Order))
 
-        #self.lin_out = Linear(args.hidden * args.Order, args.colors)
+        self.lin_out = Linear(args.hidden * args.Order, self.out_dim)
         self.lin_out1 = Linear(args.hidden * args.Order, args.hidden)
         self.lin_out2 = Linear(args.hidden, self.out_dim)
 
@@ -32,12 +32,16 @@ class co_HiGCN(torch.nn.Module):
         #self.Init = args.Init
         self.dprate = args.dprate
         self.dropout = args.dropout
+        self.reset_parameters()
 
     def reset_parameters(self):
-        self.hgc.reset_parameters()
-        self.lin_in.reset_parameters()
+        for layer in self.hgc:
+            layer.reset_parameters()
+        for layer in self.lin_in:
+            layer.reset_parameters()
         self.lin_out1.reset_parameters()
         self.lin_out2.reset_parameters()
+        self.lin_out.reset_parameters()
 
     def forward(self, data):
 
@@ -49,15 +53,18 @@ class co_HiGCN(torch.nn.Module):
             if self.dprate > 0.0:
                 xx = F.dropout(xx, p=self.dprate, training=self.training)
             xx = self.hgc[i](xx, HL[i + 1])
-            xx = F.leaky_relu(xx)
+            #xx = F.leaky_relu(xx)
             x_concat = torch.concat((x_concat, xx), 1)
 
 
-        #x_concat = F.dropout(x_concat, p=self.dropout, training=self.training)
-        x_concat = F.relu(x_concat)
+        x_concat = F.dropout(x_concat, p=self.dropout, training=self.training)
+
         x_concat = self.lin_out1(x_concat)
+        #x_concat = F.tanh(x_concat)
+        #x_concat = F.sigmoid(x_concat)
         x_concat = F.leaky_relu(x_concat)
         x_concat = self.lin_out2(x_concat)
+        x_concat = F.leaky_relu(x_concat)
 
         return x_concat  # 为什么要加log_softmax
 

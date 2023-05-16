@@ -79,7 +79,7 @@ def SCNNLoader(args):
     adDs = [coo2tensor(boundaries[i]) for i in range(topdim + 1)]
     Lls = [coo2tensor(normalize2(laplacians[i], laplacians_down[i], half_interval=True)) for i in range(topdim + 1)]
     Lus = [coo2tensor(normalize2(laplacians[i], laplacians_up[i], half_interval=True)) for i in range(topdim + 1)]
-
+    print(torch.max((Lus[0].to_dense()-Ls[0].to_dense())))
     y = torch.from_numpy(np.loadtxt(os.path.join(root, '0-simplex', 'influence.txt')))
     node_num = len(y)
 

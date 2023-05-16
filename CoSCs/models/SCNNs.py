@@ -161,7 +161,7 @@ class SNN(nn.Module):
         out0_3 = self.C0_3(Ls[0], nn.LeakyReLU()(out0_2)) #+ self.D10_3(nn.LeakyReLU()(out1_2))
 
 
-        return out0_3.view(-1)
+        return out0_3.view(-1,1)
 
 
 class SCNN(nn.Module):
@@ -207,4 +207,4 @@ class SCNN(nn.Module):
         out0_2 = self.C0_2(Lls[0], Lus[0], nn.LeakyReLU()(out0_1)) #+ self.D10_2(nn.LeakyReLU()(out1_1))
         out0_3 = self.C0_3(Lls[0], Lus[0], nn.LeakyReLU()(out0_2)) #+ self.D10_3(nn.LeakyReLU()(out1_2))
 
-        return out0_3.view(-1)
+        return out0_3.view(-1,1)
