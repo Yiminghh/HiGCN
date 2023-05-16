@@ -95,7 +95,10 @@ go to folder `./graph_classify`
 We prepared individual scripts for each experiment. The results are written in the
 `exp/results/` directory and are also displayed in the terminal once the training is
 complete. 
-
+```shell
+cd CoSCs
+sh scripts/HiGCN-PROETINS.sh
+```
 
 
 # Citation
