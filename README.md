@@ -19,6 +19,8 @@ pytorch-geometric
 networkx
 numpy
 ```
+# Exp1: Node classification 
+go to folder `./node_classify/src`
 
 # Run experiment with Cora:
 
@@ -34,7 +36,10 @@ python train_model.py --RPMAX 100 \
         --dprate 0.3
 ```
 
-# Repreduce results in Table 2:
+Before the training starts, the scripts will download / preprocess the corresponding graph datasets 
+and perform the appropriate graph-lifting procedure (this might take a while).
+
+## Repreduce results in Table 2:
 
 
 For details of optimization of all models, please refer to **Appendix G** of our paper. Here are the settings for HiGCN:
@@ -61,8 +66,8 @@ We provide more hyperparameter details on the Reproduce_HiGCN.sh.
 If some hyperparameter are not given above, it is same as the default value in the train_model.py.
 
 
-# Repreduce results in Table 3:
-## Create null model for dataset Texas:
+## Repreduce results in Table 3:
+### Create null model for dataset Texas:
 For academic confidentiality, we can't release the code which is used to generate the null model, 
 so we publish the edge list of each null model in the folder `nullModel_Texas` under `data` folder.
 
@@ -74,6 +79,22 @@ If you want to run null model dataset, just change Dataset name as Texas_null an
 python train_model.py --RPMAX 100 --net HiGCN --dataset Texas_null --lr 0.1 --alpha 0.5 --weight_decay 0.001 --dprate 0.3 --rho='0.1'
 ```
 
+# Exp2: simplicial data imputation
+go to folder `./CoSCs`
+
+To run an experiment on coauthor complexes with HiGCN, execute:
+```shell
+cd CoSCs
+sh CoSCs-HiGCN.sh
+```
+
+
+# Exp3: graph classification
+go to folder `./graph_classify`
+
+We prepared individual scripts for each experiment. The results are written in the
+`exp/results/` directory and are also displayed in the terminal once the training is
+complete. 
 
 
 
