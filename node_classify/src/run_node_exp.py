@@ -1,5 +1,8 @@
 import sys
-#sys.path.append("..")
+import os
+sys.path.append("../..")
+# from definitions import ROOT_DIR
+# sys.path.append(ROOT_DIR)
 from node_classify.utils.dataset_utils import DataLoader, random_planetoid_splits
 from node_classify.utils.param_utils import *
 import torch
@@ -113,7 +116,7 @@ if __name__ == '__main__':
         Result_val.append(best_val_acc)
 
         print(f'test_acc:{test_acc:.4f}, best_val_acc:{best_val_acc:.4f}\n')
-        with open('./results/log_hand_' + args.dataset + '.txt', 'a') as f:
+        with open('../results/log_hand_' + args.dataset + '.txt', 'a') as f:
             f.write(f'test_acc:{test_acc:.4f}, best_val_acc:{best_val_acc:.4f}\n')
 
     test_acc_mean, val_acc_mean = np.mean(Results0, axis=0) * 100
