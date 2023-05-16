@@ -4,12 +4,12 @@
 
 
 import argparse
-from models.HiGCN_model import HiGCN
-from models.benchmarks import *
+from node_classify.models.HiGCN_model import HiGCN
+from node_classify.models.benchmarks import *
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset', default='squirrel', help='dataset name')
+    parser.add_argument('--dataset', default='cora', help='dataset name')
     parser.add_argument('--RPMAX', type=int, default=100, help='repeat times')
     parser.add_argument('--Order', type=int, default=2, help='max simplix dimension')
     parser.add_argument('--epochs', type=int, default=1000)

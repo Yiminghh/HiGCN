@@ -1,7 +1,7 @@
 import sys
 sys.path.append("..")
-from utils.dataset_utils import DataLoader, random_planetoid_splits
-from utils.param_utils import *
+from node_classify.utils.dataset_utils import DataLoader, random_planetoid_splits
+from node_classify.utils.param_utils import *
 import torch
 import torch.nn.functional as F
 from tqdm import tqdm

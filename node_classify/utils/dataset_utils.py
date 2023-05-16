@@ -17,7 +17,7 @@ from torch_sparse import coalesce
 from torch_geometric.data import InMemoryDataset, download_url, Data
 from torch_geometric.utils.undirected import to_undirected
 from torch_geometric.utils import homophily
-from utils.gen_HoHLaplacian import creat_L_SparseTensor
+from node_classify.utils.gen_HoHLaplacian import creat_L_SparseTensor
 import torch
 import numpy as np
 import networkx as nx
@@ -202,7 +202,8 @@ def graphLoader(name):
 def DataLoader(name, args):
     # calculate higher_order adj-matrix and  save
     calculate_ = True if args.net in ['HiGCN', 'HIMnet','HiSCN'] else False
-    hl_path = osp.join('..\\data\\' + name + '\\HL_' + name + '.pt') # 存储hl的路径
+    #hl_path = osp.join('..\\data\\' + name + '\\HL_' + name + '.pt') # 存储hl的路径
+    hl_path = osp.join('..', 'data', name + '\\HL_' + name + '.pt')
 
     # if name in ['cora', 'citeseer', 'pubmed']:
     #     root_path = '../'
