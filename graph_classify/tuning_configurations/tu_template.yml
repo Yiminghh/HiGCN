@@ -1,0 +1,50 @@
+# Just a basic template that can be customised to set-up grids on TUDatasets.
+# TODO: add support to readout only on specific dimensions with arg "--readout_dims".
+dataset: MUTAG
+model:
+    - HiGCN
+petalType:
+    - simplex
+max_petal_dim:
+    - 2
+epochs:
+    - 200
+batch_size:
+    - 32
+    - 64
+    - 128
+drop_rate:
+    - 0.0
+    - 0.3
+    - 0.5
+emb_dim:
+    - 32
+    - 64
+readout:
+    - mean
+    - sum
+final_readout:
+    - sum
+init_method:
+    - mean
+jump_mode:
+    - cat
+lr:
+    - 0.001
+    - 0.005
+    - 0.01
+    - 0.0005
+lr_scheduler:
+    - StepLR
+lr_scheduler_decay_rate:
+    - 0.5
+    - 0.9
+max_dim:
+    # If supplying a max_ring_size, max_dim should be set to 2.
+    - 2
+nonlinearity:
+    - relu
+num_layers:
+    - 1
+train_eval_period:
+    - 50
