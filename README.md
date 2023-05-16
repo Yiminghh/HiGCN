@@ -26,7 +26,7 @@ go to folder `./node_classify/src`
 
 
 ```sh
-cd node_classify
+cd node_classify/src
 python train_model.py --RPMAX 100 \
         --net HiGCN \
         --dataset cora \
