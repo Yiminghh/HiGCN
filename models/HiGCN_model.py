@@ -124,3 +124,4 @@ class HiGCN(torch.nn.Module):
         return F.log_softmax(x_concat, dim=1)
 
 
+
