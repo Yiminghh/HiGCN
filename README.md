@@ -1,6 +1,6 @@
 # HiGCN
 
-This is the source code for our  paper: **Higher-order Graph Convolutional Network with Flower-Petals Laplacians on Simplicial Complexes**
+Welcome to the source code repository for our paper: **Higher-order Graph Convolutional Network with Flower-Petals Laplacians on Simplicial Complexes**
 
 
 <p align="center">
@@ -12,14 +12,15 @@ We creatively construct a higher-order **flower-petals (FP) model** and introduc
 Additionally, we propose a higher-order graph convolutional network (**HiGCN**) based on the FP Laplacians, which can capture intrinsic topology features at different scales.
 
 
-# Requirement:
+# Prerequisites:
+Ensure you have the following libraries installed:
 ```
 pytorch
 pytorch-geometric
 networkx
 numpy
 ```
-# Exp1: Node classification 
+# Exp1: Node Classification 
 go to folder `./node_classify/src`
 
 # Run experiment with Cora:
@@ -36,13 +37,13 @@ python train_model.py --RPMAX 100 \
         --dprate 0.3
 ```
 
-Before the training starts, the scripts will download / preprocess the corresponding graph datasets 
-and perform the appropriate graph-lifting procedure (this might take a while).
+Before the training commences, the script will download and preprocess the respective graph datasets. 
+Subsequently, it performs the appropriate graph-lifting procedure (this process might a while).
 
 ## Repreduce results in Table 2:
 
 
-For details of optimization of all models, please refer to **Appendix G** of our paper. Here are the settings for HiGCN:
+For details of optimization of all models, please refer to **Appendix I** of our paper. Here are the settings for HiGCN:
 
 We choose random walk path lengths with K = 10 and use a 2-layer (MLP) with 32 hidden units for the NN component. 
 
@@ -62,7 +63,7 @@ We find that learning rate (lr) and weight decay (wd) has huge influence on the 
 - For Texas, we choose lr = 0.1, alpha = 0.8, dropout = 0.6, dprate = 0.6, early_stopping = 500.
 - For Wisconsin, we choose lr = 0.2, alpha = 0.7, dropout = 0.6, dprate = 0.6, early_stopping = 500.
 
-We provide more hyperparameter details on the Reproduce_HiGCN.sh. 
+We provide more hyperparameter details on the ``Reproduce_HiGCN.sh``. 
 If some hyperparameter are not given above, it is same as the default value in the train_model.py.
 
 
@@ -82,7 +83,9 @@ python train_model.py --RPMAX 100 --net HiGCN --dataset Texas_null --lr 0.1 --al
 # Exp2: simplicial data imputation
 go to folder `./CoSCs`
 
-To run an experiment on coauthor complexes with HiGCN, execute:
+
+The results will be displayed in the terminal. 
+To run an experiment on coauthor complexes with HiGCN, execute the following command:
 ```shell
 cd CoSCs
 sh CoSCs-HiGCN.sh
@@ -108,6 +111,6 @@ Please cite our paper if you use this code in your own work:
 ```
 
  
-
+Thank you for your interest in our work. If you have any questions or encounter any issues while using our code, please don't hesitate to raise an issue or reach out to us directly.
 
 
