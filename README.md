@@ -35,7 +35,7 @@ numpy
 # Exp1: Node Classification 
 go to folder `./node_classify/src`
 
-# Run experiment with Cora:
+## Run experiment with Cora:
 
 
 ```sh
