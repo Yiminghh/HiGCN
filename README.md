@@ -53,35 +53,11 @@ python train_model.py --RPMAX 100 \
 Before the training commences, the script will download and preprocess the respective graph datasets. 
 Subsequently, it performs the appropriate graph-lifting procedure (this process might a while).
 
-## Repreduce results in Table 2:
-
-
-For details of optimization of all models, please refer to **Appendix I** of our paper. Here are the settings for HiGCN:
-
-We choose random walk path lengths with K = 10 and use a 2-layer (MLP) with 32 hidden units for the NN component. 
-
-
-
-Here is a list of hyperparameters for your reference:
-We find that learning rate (lr) and weight decay (wd) has huge influence on the results.
-
-- For cora, we choose lr = 0.1, alpha = 0.5, wd = 0.001, dprate = 0.3. 
-- For citeseer, we choose lr = 0.05, alpha = 0.7, wd = 0.1, dropout = 0.2, dprate = 0.2.
-- For pubmed, we choose lr = 0.05, alpha = 0.8, wd = 0.005, dprate = 0.2.
-- For computers, we choose lr = 0.1, alpha = 0.0, wd = 0.0, dprate = 0.7.
-- For Photo, we choose lr = 0.1, alpha = 0.3, wd = 0.0, dropout = 0.3, dprate = 0.6.
-- For chameleon, we choose lr = 0.1, alpha = 0.4, wd = 0.0, dropout = 0.8, dprate = 0.7, early_stopping = 500.
-- For Actor, we choose lr = 0.01, alpha = 0.5, wd = 0.001, dropout = 0.8, dprate = 0.8, early_stopping = 500.
-- For squirrel, we choose lr = 0.3, alpha = 1.0, wd = 0.0,  dropout = 0.6, dprate = 0.6, early_stopping = 500.
-- For Texas, we choose lr = 0.1, alpha = 0.8, dropout = 0.6, dprate = 0.6, early_stopping = 500.
-- For Wisconsin, we choose lr = 0.2, alpha = 0.7, dropout = 0.6, dprate = 0.6, early_stopping = 500.
-
 We provide more hyperparameter details on the ``Reproduce_HiGCN.sh``. 
-If some hyperparameter are not given above, it is same as the default value in the train_model.py.
 
 
-## Repreduce results in Table 3:
-### Create null model for dataset Texas:
+
+## Create null model for dataset Texas:
 For academic confidentiality, we can't release the code which is used to generate the null model, 
 so we publish the edge list of each null model in the folder `nullModel_Texas` under `data` folder.
 
