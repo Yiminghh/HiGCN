@@ -152,3 +152,5 @@ dmypy.json
 /graph_classify/datasets/MUTAG/complex_dim2_mean/
 /graph_classify/datasets/IMDBMULTI/complex_dim2_mean/
 /graph_classify/datasets/IMDBBINARY/complex_dim2_mean/
+/graph_classify/exp/results/
+/CoSCs/results/
