@@ -4,7 +4,7 @@ Welcome to the source code repository for our paper: **Higher-order Graph Convol
 
 
 <p align="center">
-  <img src=".\img\FP_model.png" width="700">
+  <img src=".\FP_model.png" width="700">
 </p>
 
 The simplicial complexes (SCs) are a powerful tool to model higher-order interactions with elegant and potent mathematical tools. 
@@ -14,11 +14,12 @@ Additionally, we propose a higher-order graph convolutional network (**HiGCN**) 
 # Citation
 Please cite our paper if you use this code in your own work:
 ```latex
-@inproceedings{HiGCN2023,
-  title={Higher-order Graph Convolutional Network with Flower-Petals Laplacians on Simplicial Complexes},
+@inproceedings{HiGCN2024,
+  title={Higher-Order Graph Convolutional Network with Flower-Petals Laplacians on Simplicial Complexes},
   author={Huang, Yiming and Zeng, Yujie and Wu, Qiang and L{\"u}, Linyuan},
-  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
-  year={2024}
+  year={2024},
+  booktitle={Proceedings of the AAAI conference on artificial intelligence (AAAI)},
+  url = {https://arxiv.org/abs/2309.12971},
 }
 ```
 
@@ -92,7 +93,20 @@ If you want to run null model dataset, just change Dataset name as Texas_null an
 python train_model.py --RPMAX 100 --net HiGCN --dataset Texas_null --lr 0.1 --alpha 0.5 --weight_decay 0.001 --dprate 0.3 --rho='0.1'
 ```
 
-# Exp2: simplicial data imputation
+# Exp2: graph classification
+go to folder `./graph_classify`
+
+We prepared individual scripts for each experiment. The results are written in the
+`exp/results/` directory and are also displayed in the terminal once the training is
+complete. 
+```shell
+cd graph_classify
+sh scripts/HiGCN-PROETINS.sh
+```
+
+
+
+# Exp3: simplicial data imputation
 go to folder `./CoSCs`
 
 
@@ -104,16 +118,7 @@ sh CoSCs-HiGCN.sh
 ```
 
 
-# Exp3: graph classification
-go to folder `./graph_classify`
 
-We prepared individual scripts for each experiment. The results are written in the
-`exp/results/` directory and are also displayed in the terminal once the training is
-complete. 
-```shell
-cd graph_classify
-sh scripts/HiGCN-PROETINS.sh
-```
 
 
 
