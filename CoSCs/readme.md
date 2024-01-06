@@ -1,3 +1,29 @@
+# File Descriptions
+
+1. data
+
+* Each dataset has its own folder ('DBLP', 'History', 'Geology'; these simplex datasets have undergone processing on the original data)
+  * raw: Folder containing the raw original data files
+  * SCNN: Stores matrices required for SNN and SCNN operations (obtained by running SCNN_dataprocess.py)
+  * name-node-labels.txt: New node IDs, old node IDs, authors
+  
+* data_filter.py: Filters the original dataset (use tri_threshold and start_year parameters to control the scale of generated simplicial complexes due to the large size of the original dataset)
+* data_process.py: Computes network features and generates HL (high-level representation)
+* SCNN_dataprocess.py: Generates matrices required for SNN and SCNN
+
+2. models
+
+co_models.py: Contains our HiGCN model
+SCNNs.py: Contains SNN and SCNN models
+
+3. utils
+
+coDataLoader.py: Holds the data loader for HiGCN
+SCNN_loaders.py: Holds the data loaders for SNN and SCNN
+
+========================================================================
+
+
 # 文件说明
 
 1. data
@@ -9,11 +35,11 @@
 * data_process.py 计算网络的特征，生成HL
 * SCNN_dataprocess.py 为SNN和SCNN生成需要的矩阵
 
-3. models
+2. models
    * co_models.py 存放我们的HiGCN模型
    * SCNNs.py 存放了SNN和SCNN模型
 
-4. utils
+3. utils
    * coDataLoader.py 存放了HiGCN的dataLoader
    * SCNN_loaders.py存放了SNN和SCNN的dataLoader
 
