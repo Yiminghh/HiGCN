@@ -11,17 +11,7 @@ The simplicial complexes (SCs) are a powerful tool to model higher-order interac
 We creatively construct a higher-order **flower-petals (FP) model** and introduce **FP Laplacians** to study SCs.
 Additionally, we propose a higher-order graph convolutional network (**HiGCN**) based on the FP Laplacians, which can capture intrinsic topology features at different scales.
 
-# Citation
-Please cite our paper if you use this code in your own work:
-```latex
-@inproceedings{HiGCN2024,
-  title={Higher-Order Graph Convolutional Network with Flower-Petals Laplacians on Simplicial Complexes},
-  author={Huang, Yiming and Zeng, Yujie and Wu, Qiang and L{\"u}, Linyuan},
-  year={2024},
-  booktitle={Proceedings of the AAAI conference on artificial intelligence (AAAI)},
-  url = {https://arxiv.org/abs/2309.12971},
-}
-```
+
 
 
 
@@ -41,7 +31,7 @@ go to folder `./node_classify/src`
 
 ```sh
 cd node_classify/src
-python train_model.py --RPMAX 100 \
+python run_node_exp.py --RPMAX 100 \
         --net HiGCN \
         --dataset cora \
         --lr 0.1 \
@@ -96,7 +86,17 @@ sh CoSCs-HiGCN.sh
 
 
 
-
+# Citation
+Please cite our work if you find our code/paper is useful to your work. :
+```latex
+@inproceedings{HiGCN2024,
+  title={Higher-Order Graph Convolutional Network with Flower-Petals Laplacians on Simplicial Complexes},
+  author={Huang, Yiming and Zeng, Yujie and Wu, Qiang and L{\"u}, Linyuan},
+  year={2024},
+  booktitle={Proceedings of the AAAI conference on artificial intelligence (AAAI)},
+  url = {https://arxiv.org/abs/2309.12971},
+}
+```
 
 
  
