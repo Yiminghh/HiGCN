@@ -2,6 +2,9 @@
 
 Welcome to the source code repository for our paper: **Higher-order Graph Convolutional Network with Flower-Petals Laplacians on Simplicial Complexes**
 
+[Yiming Huang](https://yimingh.top/), [Yujie Zeng](http://yujie.world/), [Qiang Wu](https://scholar.google.co.uk/citations?hl=en&user=edUqF7sAAAAJ&view_op=list_works&sortby=pubdate), [Linyuan Lü](https://linyuanlab.com/)
+
+[Vedio]()
 
 <p align="center">
   <img src=".\FP_model.png" width="700">
@@ -43,7 +46,7 @@ python run_node_exp.py --RPMAX 100 \
 Before the training commences, the script will download and preprocess the respective graph datasets. 
 Subsequently, it performs the appropriate graph-lifting procedure (this process might a while).
 
-We provide more hyperparameter details on the ``Reproduce_HiGCN.sh``. 
+
 
 
 
