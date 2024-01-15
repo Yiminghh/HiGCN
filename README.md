@@ -4,8 +4,6 @@ Welcome to the source code repository for our paper: **Higher-order Graph Convol
 
 [Yiming Huang](https://yimingh.top/), [Yujie Zeng](http://yujie.world/), [Qiang Wu](https://scholar.google.co.uk/citations?hl=en&user=edUqF7sAAAAJ&view_op=list_works&sortby=pubdate), [Linyuan Lü](https://linyuanlab.com/)
 
-[Vedio Introduction](https://www.youtube.com/watch?v=pe-L20ncdAQ)
-
 <p align="center">
   <img src=".\FP_model.png" width="700">
 </p>
@@ -14,7 +12,9 @@ The simplicial complexes (SCs) are a powerful tool to model higher-order interac
 We creatively construct a higher-order **flower-petals (FP) model** and introduce **FP Laplacians** to study SCs.
 Additionally, we propose a higher-order graph convolutional network (**HiGCN**) based on the FP Laplacians, which can capture intrinsic topology features at different scales.
 
+[Vedio Introduction](https://www.youtube.com/watch?v=pe-L20ncdAQ)
 
+[arXiv Link](https://arxiv.org/abs/2309.12971)
 
 
 
