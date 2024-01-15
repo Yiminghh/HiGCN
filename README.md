@@ -4,7 +4,7 @@ Welcome to the source code repository for our paper: **Higher-order Graph Convol
 
 [Yiming Huang](https://yimingh.top/), [Yujie Zeng](http://yujie.world/), [Qiang Wu](https://scholar.google.co.uk/citations?hl=en&user=edUqF7sAAAAJ&view_op=list_works&sortby=pubdate), [Linyuan Lü](https://linyuanlab.com/)
 
-[Vedio]()
+[Vedio Introduction](https://www.youtube.com/watch?v=pe-L20ncdAQ)
 
 <p align="center">
   <img src=".\FP_model.png" width="700">
