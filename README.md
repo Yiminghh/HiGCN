@@ -95,9 +95,13 @@ Please cite our work if you find our code/paper is useful to your work. :
 @inproceedings{HiGCN2024,
   title={Higher-Order Graph Convolutional Network with Flower-Petals Laplacians on Simplicial Complexes},
   author={Huang, Yiming and Zeng, Yujie and Wu, Qiang and L{\"u}, Linyuan},
-  year={2024},
   booktitle={Proceedings of the AAAI conference on artificial intelligence (AAAI)},
+  year={2024},
+  volume={38}, 
+  number={11}, 
+  pages={12653-12661}, 
   url = {https://arxiv.org/abs/2309.12971},
+  DOI={10.1609/aaai.v38i11.29160},
 }
 ```
 
